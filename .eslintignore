@@ -1,0 +1,8 @@
+node_modules/
+build/
+dist/
+webpack/
+
+assets/
+public/
+/**/*.d.ts

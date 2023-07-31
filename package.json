@@ -2,10 +2,16 @@
   "name": "test-task-trip-app",
   "version": "1.0.0",
   "description": "Test task 'Trip App' for Reenbit internship",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "APaltrow",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.2"
+  }
 }
