@@ -1,0 +1,8 @@
+@import '@style/_variables.scss';
+
+.trips_catalog {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  overflow: auto;
+}

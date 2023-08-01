@@ -1,0 +1,35 @@
+@import '@style/_variables.scss';
+
+.trips_card {
+  width: $cardWidth;
+  height: $cardHight;
+  margin-bottom: 10px;
+
+  border: $borderGray;
+
+  .trips_image {
+    width: 246px;
+    height: $imageSize;
+
+    object-fit: cover;
+    object-position: 50% 60%;
+  }
+
+  h5 {
+    margin: 27px 25px 20px 25px;
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+  p {
+    margin-left: 25px;
+    color: $graySecondary;
+
+    font-size: 12px;
+  }
+
+  &:hover {
+    border: $borderBlue;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,26 @@
+@import '@style/_variables.scss';
+
+.search_label {
+  position: relative;
+}
+.search_icon {
+  position: absolute;
+  top: 15px;
+  left: 23px;
+}
+
+.search {
+  height: 50px;
+  width: 320px;
+  border-radius: 12px;
+  padding: 0 20px 0 60px;
+
+  font-size: 16px;
+  color: black;
+  background-color: $grayPrimary;
+
+  &:focus {
+    border: $borderBlue;
+    background-color: white;
+  }
+}

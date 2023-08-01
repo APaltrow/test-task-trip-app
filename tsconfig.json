@@ -5,15 +5,13 @@
       "@/*": ["src/*"],
       "@style": ["src/style"],
       "@assets": ["src/assets"],
-      "@router/*": ["src/router/*"],
       "@components": ["src/components"],
       "@constants/*": ["src/constants/*"],
       "@hooks/*": ["src/hooks/*"],
       "@helpers": ["src/helpers"],
       "@api/*": ["src/api/*"],
       "@redux": ["src/redux"],
-      "@types": ["src/types"],
-      "@pages": ["src/pages"]
+      "@types": ["src/types"]
     },
     "jsx": "react-jsx",
     "allowJs": true,

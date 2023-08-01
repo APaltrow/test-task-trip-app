@@ -1,0 +1,23 @@
+@import '@style/_variables.scss';
+
+.addTrip_btn {
+  width: $cardWidth;
+  height: $imageSize;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background-color: $grayPrimary;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: white;
+    border: $borderBlue;
+    cursor: pointer;
+  }
+}
