@@ -1,0 +1,10 @@
+@import '@style/_variables.scss';
+
+.logo {
+  width: $logoSize;
+  height: $logoSize;
+
+  position: absolute;
+  top: 30px;
+  right: 35px;
+}
