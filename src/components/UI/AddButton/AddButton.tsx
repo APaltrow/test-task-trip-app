@@ -4,11 +4,16 @@ import addIcon from '@assets/images/plus.svg';
 
 import style from './AddButton.module.scss';
 
-export const AddButton: FC = () => {
+interface AddButtonProps {
+  onClick: () => void;
+}
+
+export const AddButton: FC<AddButtonProps> = ({ onClick }) => {
   return (
     <button
       type="button"
       className={style.addTrip_btn}
+      onClick={onClick}
     >
       <img
         src={addIcon}

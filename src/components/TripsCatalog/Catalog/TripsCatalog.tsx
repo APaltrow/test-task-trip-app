@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
-import { AddButton } from '@components/UI';
+import { AddButton, CustomModal } from '@components';
 
 import { TripsCard } from '../Card';
 
@@ -28,6 +28,16 @@ const TRIPS = [
 ];
 
 export const TripsCatalog: FC = () => {
+  const [isVisible, setVisible] = useState(false);
+
+  const handleModal = (arg?: boolean) => {
+    if (arg) {
+      setVisible(arg);
+      return;
+    }
+    setVisible((prev) => !prev);
+  };
+
   return (
     <div className={style.trips_catalog}>
       {TRIPS.map(({ city, date, url, id }) => (
@@ -41,8 +51,15 @@ export const TripsCatalog: FC = () => {
 
       {/* ADD BUTTON HERE */}
       <div>
-        <AddButton />
+        <AddButton onClick={() => handleModal(true)} />
       </div>
+
+      <CustomModal
+        isVisible={isVisible}
+        handleModal={handleModal}
+      >
+        <div> Create Trip Form </div>
+      </CustomModal>
     </div>
   );
 };
