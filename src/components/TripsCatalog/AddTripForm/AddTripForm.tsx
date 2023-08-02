@@ -1,8 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-import calendarIcon from '@assets/images/calendar.svg';
-
-import { CustomButton, ServiceButton } from '@components';
+import {
+  CityPicker,
+  CustomButton,
+  DatePicker,
+  ServiceButton,
+} from '@components';
 
 import style from './AddTripForm.module.scss';
 
@@ -11,7 +14,35 @@ interface FormProps {
 }
 
 export const AddTripForm: FC<FormProps> = ({ onClose }) => {
-  const [isFocused1, setFocused1] = useState(false);
+  const [trip, setTrip] = useState({
+    city: null,
+    startDate: null,
+    endDate: null,
+  });
+
+  const [isValidForm, setValidForm] = useState(false);
+
+  const onDataChange = (data: { [string]: string | null }) => {
+    setTrip((prev) => ({ ...prev, ...data }));
+  };
+
+  const onCancel = () => {
+    onClose();
+  };
+
+  const onSave = () => {
+    console.log('Form is Saved');
+  };
+
+  useEffect(() => {
+    const isValid = Object.values(trip).filter((value) => value === null);
+
+    if (isValid.length) {
+      setValidForm(false);
+    } else {
+      setValidForm(true);
+    }
+  }, [trip]);
 
   return (
     <div className={style.container}>
@@ -24,42 +55,37 @@ export const AddTripForm: FC<FormProps> = ({ onClose }) => {
         />
       </div>
       <div className={style.main}>
+        {/* City picker */}
+        <CityPicker
+          name="city"
+          onChange={onDataChange}
+        />
         {/* Date picker */}
-        <label
-          htmlFor="datepick"
-          className={style.select_label}
-        >
-          <img
-            src={calendarIcon}
-            alt="Calendar"
-          />
-          {isFocused1 ? (
-            <input
-              id="datepick"
-              type="date"
-            />
-          ) : (
-            <input
-              type="text"
-              placeholder="Select Date"
-              onFocus={() => setFocused1(true)}
-            />
-          )}
-        </label>
+        <DatePicker
+          title="Start Date"
+          name="startDate"
+          onChange={onDataChange}
+        />
+        <DatePicker
+          title="End Date"
+          name="endDate"
+          onChange={onDataChange}
+        />
       </div>
+
       <div className={style.footer}>
         <CustomButton
           type="cancel"
           buttonText="Cancel"
           isDisabled={false}
-          onClick={() => console.log('Form is Cancel')}
+          onClick={onCancel}
         />
 
         <CustomButton
           type="save"
           buttonText="Save"
-          isDisabled={false}
-          onClick={() => console.log('Form is Saved')}
+          isDisabled={!isValidForm}
+          onClick={onSave}
         />
       </div>
     </div>

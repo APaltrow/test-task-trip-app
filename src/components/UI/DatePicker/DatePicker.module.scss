@@ -1,0 +1,42 @@
+@import '@style/_variables.scss';
+
+.title {
+  margin: 12px 0;
+
+  font-size: 12px;
+  font-weight: 400;
+  span {
+    color: red;
+  }
+}
+.select_label {
+  padding: 12px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+
+  border: $borderGray;
+  border-radius: 2px;
+
+  img {
+    position: absolute;
+    right: 12px;
+    z-index: -1;
+  }
+
+  input {
+    width: 100%;
+    background-color: transparent;
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator,
+  input[type='date']::-webkit-inner-spin-button {
+    opacity: 0;
+  }
+}
+
+.error {
+  padding: 10px;
+  font-size: 14px;
+  color: darkred;
+}

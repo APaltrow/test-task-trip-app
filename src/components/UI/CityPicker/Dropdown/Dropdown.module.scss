@@ -1,0 +1,46 @@
+@import '@style/_variables.scss';
+
+.dropdown {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+
+  overflow: auto;
+
+  position: absolute;
+  left: 0;
+  bottom: -155px;
+
+  z-index: 20;
+  border: $borderGray;
+  border-radius: 2px;
+
+  background-color: white;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dropdown_item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .dropdown_img {
+      width: 100px;
+      height: 50px;
+
+      padding: 5px;
+
+      position: relative;
+      left: 0;
+
+      border-radius: 2px;
+    }
+
+    &:hover {
+      background-color: $grayPrimary;
+      cursor: pointer;
+    }
+  }
+}
