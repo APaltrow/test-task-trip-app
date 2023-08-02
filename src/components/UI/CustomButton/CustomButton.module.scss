@@ -1,0 +1,36 @@
+@import '@style/_variables.scss';
+
+@mixin button {
+  padding: 10px 15px;
+
+  border-radius: 2px;
+  background-color: transparent;
+  border: $borderGray;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.cancel {
+  @include button;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+  }
+}
+
+.save {
+  @include button;
+
+  background-color: rgba(24, 144, 255, 1);
+  border: 2px solid rgba(24, 144, 255, 1);
+  color: white;
+}

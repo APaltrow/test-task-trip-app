@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import { AddButton, CustomModal } from '@components';
 
 import { TripsCard } from '../Card';
+import { AddTripForm } from '../AddTripForm';
 
 import style from './TripsCatalog.module.scss';
 
@@ -30,12 +31,8 @@ const TRIPS = [
 export const TripsCatalog: FC = () => {
   const [isVisible, setVisible] = useState(false);
 
-  const handleModal = (arg?: boolean) => {
-    if (arg) {
-      setVisible(arg);
-      return;
-    }
-    setVisible((prev) => !prev);
+  const handleModal = (arg: boolean) => {
+    setVisible(arg);
   };
 
   return (
@@ -58,7 +55,7 @@ export const TripsCatalog: FC = () => {
         isVisible={isVisible}
         handleModal={handleModal}
       >
-        <div> Create Trip Form </div>
+        <AddTripForm onClose={() => handleModal(false)} />
       </CustomModal>
     </div>
   );
