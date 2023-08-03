@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import calendarIcon from '@assets/images/calendar.svg';
 
 import { useDateValidation } from '@hooks';
 
@@ -31,34 +30,26 @@ export const DatePicker: FC<DatePickerProps> = ({ title, name, onChange }) => {
   }, [date, error]);
 
   return (
-    <>
-      <p className={style.title}>
-        <span>* </span>
-        {title}
-      </p>
-      <label
-        htmlFor="datepick"
-        className={style.select_label}
-      >
-        <img
-          src={calendarIcon}
-          alt="Calendar"
+    <label
+      htmlFor="datepick"
+      className={style.select_label}
+      data-error={error}
+    >
+      <span className={style.title}>{title}</span>
+
+      {isFocused ? (
+        <input
+          id="datepick"
+          type="date"
+          onChange={onDateChange}
         />
-        {isFocused ? (
-          <input
-            id="datepick"
-            type="date"
-            onChange={onDateChange}
-          />
-        ) : (
-          <input
-            type="text"
-            placeholder="Select Date"
-            onFocus={() => setFocused(true)}
-          />
-        )}
-      </label>
-      <p className={style.error}>{error}</p>
-    </>
+      ) : (
+        <input
+          type="text"
+          placeholder="Select Date"
+          onFocus={() => setFocused(true)}
+        />
+      )}
+    </label>
   );
 };

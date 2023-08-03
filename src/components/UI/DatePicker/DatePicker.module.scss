@@ -5,24 +5,25 @@
 
   font-size: 12px;
   font-weight: 400;
-  span {
-    color: red;
+
+  position: absolute;
+  top: -40px;
+  left: 0;
+
+  &::before {
+    content: '* ';
+    color: $errorSecondary;
   }
 }
 .select_label {
   padding: 12px;
+  margin-top: 40px;
   width: 100%;
   position: relative;
   z-index: 2;
 
   border: $borderGray;
   border-radius: 2px;
-
-  img {
-    position: absolute;
-    right: 12px;
-    z-index: -1;
-  }
 
   input {
     width: 100%;
@@ -33,10 +34,21 @@
   input[type='date']::-webkit-inner-spin-button {
     opacity: 0;
   }
-}
 
-.error {
-  padding: 10px;
-  font-size: 14px;
-  color: darkred;
+  &::before {
+    content: url('../../../assets/images/calendar.svg');
+    position: absolute;
+    right: 12px;
+    z-index: -1;
+  }
+
+  &::after {
+    content: attr(data-error);
+    position: absolute;
+
+    bottom: -25px;
+    left: 30%;
+    font-size: 14px;
+    color: $errorSecondary;
+  }
 }

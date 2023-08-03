@@ -20,6 +20,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: relative;
+
+  &::after {
+    content: attr(data-error);
+    position: absolute;
+
+    bottom: -25px;
+    left: 30%;
+    font-size: 14px;
+    color: $errorSecondary;
+  }
 }
 
 .main {

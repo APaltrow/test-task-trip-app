@@ -1,0 +1,19 @@
+@import '@style/_variables.scss';
+
+.error {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  margin-top: 5px;
+
+  gap: 10px;
+}
+.error_img {
+  height: 20px;
+}
+
+.error_text {
+  font-size: 14px;
+  color: $errorPrimary;
+}

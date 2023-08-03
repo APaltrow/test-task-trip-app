@@ -6,3 +6,4 @@ export * from './ServiceButton';
 export * from './CustomButton';
 export * from './DatePicker';
 export * from './CityPicker';
+export * from './Error';

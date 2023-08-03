@@ -10,8 +10,8 @@
   position: absolute;
   left: 0;
   bottom: -155px;
-
   z-index: 20;
+
   border: $borderGray;
   border-radius: 2px;
 
@@ -22,25 +22,36 @@
   }
 
   .dropdown_item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    width: 100%;
 
     .dropdown_img {
       width: 100px;
       height: 50px;
-
-      padding: 5px;
 
       position: relative;
       left: 0;
 
       border-radius: 2px;
     }
+  }
+
+  .dropdown_btn {
+    width: 100%;
+    padding: 5px;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    background-color: transparent;
 
     &:hover {
       background-color: $grayPrimary;
       cursor: pointer;
+    }
+
+    &:focus {
+      border: $borderBlue;
     }
   }
 }

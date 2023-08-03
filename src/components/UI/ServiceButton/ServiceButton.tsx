@@ -25,7 +25,7 @@ export const ServiceButton: FC<ServiceButtonProps> = ({
   const iconURL: string = SERVICE_ICONS[type];
   return (
     <button
-      className={style.close_btn}
+      className={style.service_btn}
       onClick={onClick}
       disabled={disabled || false}
       type="button"

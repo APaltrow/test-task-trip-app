@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
 import {
   CityPicker,
@@ -6,47 +6,59 @@ import {
   DatePicker,
   ServiceButton,
 } from '@components';
+import { useFormValidation } from '@hooks';
+import { CITIES_LIST } from '@constants';
 
 import style from './AddTripForm.module.scss';
 
+const DEFAULT_TRIP = {
+  city: null,
+  startDate: null,
+  endDate: null,
+};
+
 interface FormProps {
   onClose: () => void;
+  onAddNewTrip: () => void;
 }
 
-export const AddTripForm: FC<FormProps> = ({ onClose }) => {
-  const [trip, setTrip] = useState({
-    city: null,
-    startDate: null,
-    endDate: null,
-  });
+export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
+  const [trip, setTrip] = useState(DEFAULT_TRIP);
 
-  const [isValidForm, setValidForm] = useState(false);
+  const { isValidForm, error } = useFormValidation(trip);
 
   const onDataChange = (data: { [string]: string | null }) => {
     setTrip((prev) => ({ ...prev, ...data }));
   };
 
   const onCancel = () => {
+    setTrip(DEFAULT_TRIP);
     onClose();
   };
 
   const onSave = () => {
-    console.log('Form is Saved');
+    /** TODO : refactor img func */
+
+    const imgURL = CITIES_LIST.filter(
+      (item) => item.name.toLowerCase() === trip.city.toLowerCase(),
+    )[0].imgURL;
+
+    onAddNewTrip({
+      ...trip,
+
+      id: Date.now(),
+      imgURL,
+    });
+
+    onClose();
   };
-
-  useEffect(() => {
-    const isValid = Object.values(trip).filter((value) => value === null);
-
-    if (isValid.length) {
-      setValidForm(false);
-    } else {
-      setValidForm(true);
-    }
-  }, [trip]);
 
   return (
     <div className={style.container}>
-      <div className={style.header}>
+      <div
+        className={style.header}
+        data-error={error}
+      >
         <h5>Create Trip</h5>
 
         <ServiceButton
@@ -54,6 +66,7 @@ export const AddTripForm: FC<FormProps> = ({ onClose }) => {
           onClick={onClose}
         />
       </div>
+
       <div className={style.main}>
         {/* City picker */}
         <CityPicker

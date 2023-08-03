@@ -1,4 +1,4 @@
-@mixin modal {
+.modal {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
@@ -9,19 +9,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@mixin modal-content {
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal_active {
-  @include modal;
 
   opacity: 1;
   z-index: 10;
@@ -37,27 +24,14 @@
     }
   }
 }
-.modal_closed {
-  @include modal;
 
-  opacity: 0;
-  z-index: -5;
+.content {
+  position: relative;
 
-  animation: fadeOut 0s linear;
-
-  @keyframes fadeOut {
-    0% {
-      opacity: 1;
-    }
-
-    100% {
-      opacity: 0;
-    }
-  }
-}
-
-.content_active {
-  @include modal-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   z-index: 20;
   animation: fade-in 0.3s linear;
@@ -69,21 +43,6 @@
 
     100% {
       transform: scale(1);
-    }
-  }
-}
-.content_closed {
-  @include modal-content;
-
-  animation: fade-out 0.3s linear;
-
-  @keyframes fade-out {
-    0% {
-      transform: scale(1);
-    }
-
-    100% {
-      transform: scale(0);
     }
   }
 }

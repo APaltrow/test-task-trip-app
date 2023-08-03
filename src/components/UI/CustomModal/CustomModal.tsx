@@ -14,13 +14,15 @@ export const CustomModal: FC<ModalProps> = ({
   isVisible,
   handleModal,
 }) => {
+  if (!isVisible) return null;
+
   return (
     <div
-      className={isVisible ? style.modal_active : style.modal_closed}
+      className={style.modal}
       onClick={() => handleModal(false)}
     >
       <div
-        className={isVisible ? style.content_active : style.content_closed}
+        className={style.content}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

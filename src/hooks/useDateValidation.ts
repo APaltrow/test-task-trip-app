@@ -8,7 +8,7 @@ export const useDateValidation = (date: string) => {
 
     const todayDate = new Date();
 
-    /* Generating date from user input */
+    /* Generating date from user's input */
 
     const inputDate = new Date(
       userInputDate.split('-')[0],
@@ -27,7 +27,7 @@ export const useDateValidation = (date: string) => {
     }
 
     if (inputDate > endDate) {
-      setError('Date should not exceed 15 days from now.');
+      setError('Date should be within the next 15 days');
     } else {
       setError(null);
     }

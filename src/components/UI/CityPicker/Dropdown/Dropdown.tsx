@@ -4,24 +4,32 @@ import style from './Dropdown.module.scss';
 
 interface DropdownProps {
   data: any[];
+  isVisible: boolean;
   onPick: (cityName: string) => void;
 }
 
-export const Dropdown: FC<DropdownProps> = ({ onPick, data }) => {
+export const Dropdown: FC<DropdownProps> = ({ data, isVisible, onPick }) => {
+  if (!isVisible) return null;
+
   return (
     <ul className={style.dropdown}>
       {data.map(({ name, id, imgURL }) => (
         <li
-          key={id}
           className={style.dropdown_item}
-          onClick={() => onPick(name)}
+          key={id}
         >
-          <img
-            className={style.dropdown_img}
-            src={imgURL}
-            alt={name}
-          />
-          <span>{name}</span>
+          <button
+            className={style.dropdown_btn}
+            type="button"
+            onClick={() => onPick(name)}
+          >
+            <img
+              className={style.dropdown_img}
+              src={imgURL}
+              alt={name}
+            />
+            <span>{name}</span>
+          </button>
         </li>
       ))}
     </ul>

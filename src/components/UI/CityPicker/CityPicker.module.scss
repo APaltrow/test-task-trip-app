@@ -5,8 +5,14 @@
 
   font-size: 12px;
   font-weight: 400;
-  span {
-    color: red;
+
+  position: absolute;
+  top: -40px;
+  left: 0;
+
+  &::before {
+    content: '* ';
+    color: $errorSecondary;
   }
 }
 
@@ -18,9 +24,20 @@
   border: $borderGray;
   border-radius: 2px;
 
-  .select_city_img {
+  &::after {
+    content: attr(data-error);
+    position: absolute;
+
+    bottom: -25px;
+    left: 30%;
+    font-size: 14px;
+    color: $errorSecondary;
+  }
+
+  .select_btn {
     position: absolute;
     right: 12px;
+    top: 8px;
 
     &:hover {
       cursor: pointer;
