@@ -1,24 +1,48 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
-import rainy from '@assets/images/rainy.png';
+import { getDayOfWeek, getWeatherIcon } from '@helpers';
+import {
+  fetchWeatherTodayThunk,
+  getWeatherTodayState,
+  useAppDispatch,
+  useAppSelector,
+} from '@redux';
 
 import style from './WeatherWidget.module.scss';
 
 export const WeatherWidget: FC = () => {
+  const dispatch = useAppDispatch();
+  const { weatherToday, status, error } = useAppSelector(getWeatherTodayState);
+
+  useEffect(() => {
+    dispatch(fetchWeatherTodayThunk('Berlin'));
+  }, []);
+
+  if (status === 'pending') return <span>Loading ...</span>;
+  if (error) return <span>ERROR</span>;
+
+  if (!weatherToday) return null;
+
+  const { datetime, icon, temp, city } = weatherToday;
+
+  const dayOfWeek = getDayOfWeek(datetime);
+  const iconURL = getWeatherIcon(icon);
+
   return (
     <div className={style.widget}>
-      <h3>Sunday</h3>
+      <h3>{dayOfWeek}</h3>
 
       <div className={style.widget_temperature}>
         <img
           className={style.widget_img}
-          src={rainy}
+          src={iconURL}
           alt="weather icon"
         />
         <p>
-          24<sup>°C</sup>
+          {Math.floor(temp)}
+          <sup>°C</sup>
         </p>
-        <span>Berlin</span>
+        <span>{city}</span>
       </div>
     </div>
   );

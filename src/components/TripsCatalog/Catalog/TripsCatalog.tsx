@@ -1,44 +1,54 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { AddButton, CustomModal } from '@components';
 
+import {
+  addNewTrip,
+  getTripsState,
+  setActiveTrip,
+  useAppDispatch,
+  useAppSelector,
+} from '@redux';
+
 import { useModal } from '@hooks';
+import { sortByStartDate } from '@helpers';
+import { ITrip } from '@types';
+
+import style from './TripsCatalog.module.scss';
 
 import { TripsCard } from '../Card';
 import { AddTripForm } from '../AddTripForm';
 
-import style from './TripsCatalog.module.scss';
-
-const TRIPS = [
-  {
-    startDate: '2023-08-05',
-    endDate: '2023-08-15',
-    city: 'Berlin',
-    id: 3,
-    imgURL:
-      'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
-  },
-];
-
 export const TripsCatalog: FC = () => {
-  const [isVisible, handleModal] = useModal();
-  const [trips, setTrips] = useState(TRIPS);
+  const dispatch = useAppDispatch();
 
-  const onAddNewTrip = (newTrip) => {
-    setTrips((prev) => [...prev, newTrip]);
+  const [isVisible, handleModal] = useModal();
+  const { trips, activeTrip, filteredTrips, searchValue } =
+    useAppSelector(getTripsState);
+
+  const onAddNewTrip = (newTrip: ITrip) => {
+    dispatch(addNewTrip([...trips, newTrip].sort(sortByStartDate)));
   };
-  console.log(trips);
+
+  const onSelectActive = (indexOfActiveTrip: number) => {
+    dispatch(setActiveTrip(indexOfActiveTrip));
+  };
+
   return (
     <div className={style.trips_catalog}>
-      {trips.map(({ city, startDate, endDate, imgURL, id }) => (
-        <TripsCard
-          key={id}
-          startDate={startDate}
-          endDate={endDate}
-          city={city}
-          url={imgURL}
-        />
-      ))}
+      {(searchValue ? filteredTrips : trips).map(
+        ({ city, startDate, endDate, imgURL, id }, index) => (
+          <TripsCard
+            key={id}
+            onSelectActive={() => onSelectActive(index)}
+            isActive={activeTrip === index}
+            startDate={startDate}
+            endDate={endDate}
+            city={city}
+            url={imgURL}
+          />
+        ),
+      )}
 
       {/* ADD BUTTON HERE */}
       <div>

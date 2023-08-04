@@ -1,10 +1,16 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 import searchIcon from '@assets/images/search.svg';
 
 import style from './Search.module.scss';
 
-export const Search: FC = () => {
+interface SearchProps {
+  value: string;
+
+  onSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const Search: FC<SearchProps> = ({ value, onSearch }) => {
   return (
     <label
       htmlFor="search"
@@ -17,6 +23,8 @@ export const Search: FC = () => {
       />
       <input
         className={style.search}
+        value={value}
+        onChange={onSearch}
         type="search"
         id="search"
         autoComplete="off"

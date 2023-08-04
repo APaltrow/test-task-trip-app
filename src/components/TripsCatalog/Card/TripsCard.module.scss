@@ -3,12 +3,9 @@
 .trips_card {
   width: $cardWidth;
   height: $cardHight;
-  margin-bottom: 10px;
-
-  border: $borderGray;
 
   .trips_image {
-    width: 246px;
+    width: 100%;
     height: $imageSize;
 
     object-fit: cover;
@@ -17,7 +14,7 @@
 
   h5 {
     margin: 27px 25px 20px 25px;
-    font-weight: normal;
+    font-weight: 500;
     font-size: 14px;
   }
 
@@ -27,9 +24,31 @@
 
     font-size: 12px;
   }
+}
+
+.card_btn {
+  text-align: start;
+  background-color: transparent;
+  border: $borderGray;
+
+  margin-bottom: 10px;
+
+  &:focus {
+    border: $borderBlue;
+  }
 
   &:hover {
-    border: $borderBlue;
     cursor: pointer;
+    border: $borderBlue;
   }
+}
+
+.card_btn_active {
+  text-align: start;
+  background-color: transparent;
+  border: $borderBlue;
+
+  margin-bottom: 10px;
+
+  box-shadow: 3px 3px 5px 1px rgba(0, 0, 255, 0.2);
 }

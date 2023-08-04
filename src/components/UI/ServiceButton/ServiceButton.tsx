@@ -2,12 +2,16 @@ import { FC } from 'react';
 
 import closeIcon from '@assets/images/close.svg';
 import arrowIcon from '@assets/images/arrowDown.svg';
+import nextIcon from '@assets/images/next.svg';
+import previousIcon from '@assets/images/previous.svg';
 
 import style from './ServiceButton.module.scss';
 
 const SERVICE_ICONS = {
   close: closeIcon,
   arrowDown: arrowIcon,
+  next: nextIcon,
+  previous: previousIcon,
 };
 
 interface ServiceButtonProps {

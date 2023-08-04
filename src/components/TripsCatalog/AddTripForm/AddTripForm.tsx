@@ -7,7 +7,8 @@ import {
   ServiceButton,
 } from '@components';
 import { useFormValidation } from '@hooks';
-import { CITIES_LIST } from '@constants';
+import { generateID, getImgURLByCityName } from '@helpers';
+import { ITrip } from '@types';
 
 import style from './AddTripForm.module.scss';
 
@@ -17,13 +18,19 @@ const DEFAULT_TRIP = {
   endDate: null,
 };
 
+interface ITripInitialData {
+  city: null | string;
+  startDate: null | string;
+  endDate: null | string;
+}
+
 interface FormProps {
   onClose: () => void;
-  onAddNewTrip: () => void;
+  onAddNewTrip: (newTrip: ITrip) => void;
 }
 
 export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
-  const [trip, setTrip] = useState(DEFAULT_TRIP);
+  const [trip, setTrip] = useState<ITripInitialData>(DEFAULT_TRIP);
 
   const { isValidForm, error } = useFormValidation(trip);
 
@@ -37,19 +44,17 @@ export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
   };
 
   const onSave = () => {
-    /** TODO : refactor img func */
+    if (!trip?.city || !trip?.startDate || !trip?.startDate) return;
 
-    const imgURL = CITIES_LIST.filter(
-      (item) => item.name.toLowerCase() === trip.city.toLowerCase(),
-    )[0].imgURL;
-
-    onAddNewTrip({
+    const imgURL: string = getImgURLByCityName(trip.city);
+    const id: number = generateID();
+    const newTrip: ITrip = {
       ...trip,
-
-      id: Date.now(),
       imgURL,
-    });
+      id,
+    };
 
+    onAddNewTrip(newTrip);
     onClose();
   };
 
