@@ -12,8 +12,8 @@ import { ServiceButton, Search } from '@components';
 
 import style from './ToolBar.module.scss';
 
-//  TODO ======  Implement next and previous buttons
-//  TODO ======  Sort trips by start trip date
+//  TO DO ======  Implement next and previous buttons
+//  TO DO ======  Sort trips by start trip date
 
 export const ToolBar: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,11 +25,11 @@ export const ToolBar: FC = () => {
 
   const onChangeActiveTrip = (activeTripIdx: number) => {
     if (activeTripIdx > trips.length) {
-      dispatch(setActiveTrip(0));
+      dispatch(setActiveTrip(trips[0].id));
       return;
     }
 
-    dispatch(setActiveTrip(activeTripIdx));
+    dispatch(setActiveTrip(trips[activeTripIdx].id));
   };
 
   return (

@@ -5,15 +5,15 @@ import style from './ForecastCard.module.scss';
 interface ForecastCardProps {
   iconURL: string;
   day: string;
-  degreesDay: number;
-  degreesNight: number;
+  tempMin: number;
+  tempMax: number;
 }
 
 export const ForecastCard: FC<ForecastCardProps> = ({
   iconURL,
   day,
-  degreesDay,
-  degreesNight,
+  tempMin,
+  tempMax,
 }) => {
   return (
     <div className={style.forecast_card}>
@@ -21,9 +21,9 @@ export const ForecastCard: FC<ForecastCardProps> = ({
       <img
         className={style.card_img}
         src={iconURL}
-        alt="asdss"
+        alt={day}
       />
-      <p>{`${degreesDay}°/${degreesNight}°`}</p>
+      <p>{`${Math.floor(tempMax)}°/${Math.floor(tempMin)}°`}</p>
     </div>
   );
 };

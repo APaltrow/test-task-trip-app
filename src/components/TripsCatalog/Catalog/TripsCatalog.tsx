@@ -30,8 +30,8 @@ export const TripsCatalog: FC = () => {
     dispatch(addNewTrip([...trips, newTrip].sort(sortByStartDate)));
   };
 
-  const onSelectActive = (indexOfActiveTrip: number) => {
-    dispatch(setActiveTrip(indexOfActiveTrip));
+  const onSelectActive = (activeId: number) => {
+    dispatch(setActiveTrip(activeId));
   };
 
   return (
@@ -40,7 +40,7 @@ export const TripsCatalog: FC = () => {
         ({ city, startDate, endDate, imgURL, id }, index) => (
           <TripsCard
             key={id}
-            onSelectActive={() => onSelectActive(index)}
+            onSelectActive={() => onSelectActive(id)}
             isActive={activeTrip === index}
             startDate={startDate}
             endDate={endDate}

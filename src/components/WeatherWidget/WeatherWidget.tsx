@@ -3,25 +3,34 @@ import { FC, useEffect } from 'react';
 import { getDayOfWeek, getWeatherIcon } from '@helpers';
 import {
   fetchWeatherTodayThunk,
+  getTripsState,
   getWeatherTodayState,
   useAppDispatch,
   useAppSelector,
 } from '@redux';
+
+import { Error, Loader } from '@components';
 
 import style from './WeatherWidget.module.scss';
 
 export const WeatherWidget: FC = () => {
   const dispatch = useAppDispatch();
   const { weatherToday, status, error } = useAppSelector(getWeatherTodayState);
+  const { activeTrip, trips } = useAppSelector(getTripsState);
 
   useEffect(() => {
-    dispatch(fetchWeatherTodayThunk('Berlin'));
-  }, []);
+    const { city } = trips[activeTrip];
+    /** TO DO : remove conditional after  */
+    if (city === 'Berlin') return;
+    if (!city) return;
+    dispatch(fetchWeatherTodayThunk(city));
+  }, [activeTrip]);
 
-  if (status === 'pending') return <span>Loading ...</span>;
-  if (error) return <span>ERROR</span>;
+  if (status === 'pending') return <Loader />;
+  if (error) return <Error errorMessage={error} />;
 
-  if (!weatherToday) return null;
+  if (!weatherToday)
+    return <Error errorMessage="Could not retrieve the data ..." />;
 
   const { datetime, icon, temp, city } = weatherToday;
 

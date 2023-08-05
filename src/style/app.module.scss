@@ -32,6 +32,12 @@ body {
   position: relative;
   width: 30vw;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 150px;
+
   color: rgba(255, 255, 255, 1);
   background-color: $bluePrimary;
 }

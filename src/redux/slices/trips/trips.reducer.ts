@@ -7,13 +7,14 @@ import { TripsState } from '@redux';
 const initialState: TripsState = {
   trips: [
     {
-      startDate: '2023-08-01',
-      endDate: '2023-08-11',
+      startDate: '2023-08-06',
+      endDate: '2023-08-08',
       city: 'Berlin',
       id: 1,
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
+    /**
     {
       startDate: '2023-08-02',
       endDate: '2023-08-12',
@@ -54,6 +55,7 @@ const initialState: TripsState = {
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
+     */
   ],
   searchValue: '',
   filteredTrips: [],
@@ -68,7 +70,17 @@ export const tripsSlice = createSlice({
       state.trips = action.payload;
     },
     setActiveTrip: (state, action: PayloadAction<number>) => {
-      state.activeTrip = action.payload;
+      /* Searching for active Trip by ID */
+      const active = state.trips.find((trip) => trip.id === action.payload);
+
+      /* Setting index of the active trip */
+      state.activeTrip = state.trips.indexOf(active);
+
+      /* if there is search value - removing it and resetting filtered list */
+      if (state.searchValue) {
+        state.searchValue = '';
+        state.filteredTrips = [];
+      }
     },
     setSearchVale: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
