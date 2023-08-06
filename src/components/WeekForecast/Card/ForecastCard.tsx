@@ -16,14 +16,16 @@ export const ForecastCard: FC<ForecastCardProps> = ({
   tempMax,
 }) => {
   return (
-    <div className={style.forecast_card}>
-      <h6>{day}</h6>
+    <div className={style.container}>
+      <h6 className={style.title}>{day}</h6>
       <img
-        className={style.card_img}
+        className={style.icon}
         src={iconURL}
         alt={day}
       />
-      <p>{`${Math.floor(tempMax)}°/${Math.floor(tempMin)}°`}</p>
+      <p className={style.text}>
+        {`${Math.floor(tempMax)}°/${Math.floor(tempMin)}°`}
+      </p>
     </div>
   );
 };

@@ -6,7 +6,7 @@ export const useCountDown = (dateToCount: string) => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
-  const timerId = useRef<NodeJS.Timer>();
+  const timerId = useRef<NodeJS.Timer | null>(null);
 
   const startTimer = () => {
     const countdownDate = new Date(dateToCount).getTime();

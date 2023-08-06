@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { ServiceButton } from '@components';
 import { filterCityByInput } from '@helpers';
@@ -30,7 +30,7 @@ export const CityPicker: FC<CityPickerProps> = ({ name, onChange }) => {
     setVisible(false);
   };
   /* on city name input by the user */
-  const onCityChange = (event) => {
+  const onCityChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCity(event.target.value);
 
     if (!event.target.value) {

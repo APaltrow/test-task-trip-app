@@ -6,7 +6,7 @@ import { ForecastParams } from '@types';
 export const fetchForecast = async (params: ForecastParams) => {
   const { city, startDate, endDate } = params;
 
-  const FORECAST_URL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${startDate}/${endDate}?key=${API_KEY}`;
+  const FORECAST_URL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${startDate}/${endDate}?unitGroup=metric&key=${API_KEY}`;
   const { data } = await axios.get(FORECAST_URL);
 
   return data.days.map((day) => {

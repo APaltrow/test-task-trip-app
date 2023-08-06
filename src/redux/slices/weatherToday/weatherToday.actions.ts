@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { fetchWeatherToday } from '@api';
-
 import { IWeatherToday } from '@redux';
+
+import { fetchWeatherToday } from '@api';
 
 export const fetchWeatherTodayThunk = createAsyncThunk<IWeatherToday, string>(
   'weatherToday/fetchWeatherTodayThunk',

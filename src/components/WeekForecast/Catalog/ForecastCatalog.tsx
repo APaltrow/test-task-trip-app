@@ -45,9 +45,9 @@ export const ForecastCatalog: FC = () => {
     return <Error errorMessage="Could not retrieve the data ..." />;
 
   return (
-    <div className={style.week_forecast}>
-      <h3>Week</h3>
-      <div className={style.forecast_catalog}>
+    <div className={style.container}>
+      <h3 className={style.title}>Week</h3>
+      <div className={style.slider}>
         {forecast.map((day) => (
           <ForecastCard
             key={day.id}

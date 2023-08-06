@@ -21,7 +21,7 @@ export const WeatherWidget: FC = () => {
   useEffect(() => {
     const { city } = trips.find((trip) => trip.id === activeTrip);
     /** TO DO : remove conditional after  */
-    if (true) return;
+    // if (true) return;
     if (!city) return;
     dispatch(fetchWeatherTodayThunk(city));
   }, [activeTrip]);
@@ -38,20 +38,17 @@ export const WeatherWidget: FC = () => {
   const iconURL = getWeatherIcon(icon);
 
   return (
-    <div className={style.widget}>
-      <h3>{dayOfWeek}</h3>
+    <div className={style.container}>
+      <h3 className={style.title}>{dayOfWeek}</h3>
 
-      <div className={style.widget_temperature}>
+      <div className={style.temperature_container}>
         <img
-          className={style.widget_img}
+          className={style.temperature_icon}
           src={iconURL}
           alt="weather icon"
         />
-        <p>
-          {Math.floor(temp)}
-          <sup>°C</sup>
-        </p>
-        <span>{city}</span>
+        <p className={style.temperature}>{Math.floor(temp)}</p>
+        <span className={style.city}>{city}</span>
       </div>
     </div>
   );

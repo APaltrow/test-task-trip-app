@@ -55,10 +55,11 @@ export const TripsCatalog: FC = () => {
             />
           ),
         )}
-        {/* ADD BUTTON HERE */}
-        <div>
-          <AddButton onClick={() => handleModal(true)} />
-        </div>
+      </div>
+
+      {/* ADD BUTTON HERE */}
+      <div>
+        <AddButton onClick={() => handleModal(true)} />
       </div>
 
       {/* ADD Form with MODAL HERE */}
