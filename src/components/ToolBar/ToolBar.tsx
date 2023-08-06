@@ -58,9 +58,9 @@ export const ToolBar: FC = () => {
             disabled={activeTripIndex <= 0}
             onClick={() => onChangeActiveTrip(activeTripIndex - 1)}
           />
-          <span className={style.info}>{`${activeTripIndex + 1} / ${
-            trips.length
-          }`}</span>
+          <span className={style.info}>
+            {`${activeTripIndex + 1} / ${trips.length}`}
+          </span>
           <ServiceButton
             type="next"
             disabled={activeTripIndex >= trips.length - 1}

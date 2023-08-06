@@ -27,9 +27,11 @@ export const App: FC = () => {
       {/*  RIGHT SIDE Widget */}
 
       <div className={style.right}>
-        <Logo />
+        <div className={style.container}>
+          <Logo />
+          <WeatherWidget />
+        </div>
 
-        <WeatherWidget />
         <CountDownTimer />
       </div>
     </div>

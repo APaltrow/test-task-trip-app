@@ -36,7 +36,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 50px;
 
   color: rgba(255, 255, 255, 1);
   background-color: $bluePrimary;
@@ -48,6 +47,10 @@ body {
     url('../assets/images/background.svg') -60px 200px no-repeat;
 
   background-color: $bluePrimary;
+
+  .container {
+    height: 50%;
+  }
 }
 
 @media screen and (max-width: 1700px) {
