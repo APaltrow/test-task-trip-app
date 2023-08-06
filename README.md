@@ -1,6 +1,6 @@
 # _Project_ : Trip App (test task)
 
-_See project live :_ **[TripApp.com]()**
+_See project live :_ **[TripApp.com](https://apaltrow.github.io/test-task-trip-app/)**
 
 ## About
 

@@ -14,6 +14,7 @@ const initialState: TripsState = {
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
+    /** 
     {
       startDate: '2023-08-08',
       endDate: '2023-08-09',
@@ -38,7 +39,7 @@ const initialState: TripsState = {
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
-    /** 
+  
     {
       startDate: '2023-08-11',
       endDate: '2023-08-12',

@@ -9,7 +9,7 @@ module.exports = {
     filename: 'JS/[name].[hash].js',
     assetModuleFilename: 'asset/[name][hash][ext]',
     chunkFilename: '[name].chunk.js',
-    publicPath: '/',
+    publicPath: './',
     clean: true,
   },
   resolve: {
