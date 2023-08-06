@@ -15,6 +15,7 @@ import style from './ToolBar.module.scss';
 
 export const ToolBar: FC = () => {
   const dispatch = useAppDispatch();
+
   const { trips, filteredTrips, activeTrip, searchValue, sortOrder } =
     useAppSelector(getTripsState);
 

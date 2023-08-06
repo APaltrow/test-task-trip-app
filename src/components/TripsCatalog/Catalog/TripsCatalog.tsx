@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
-import { AddButton, CustomModal } from '@components';
-
 import {
   getTripsState,
   setActiveTrip,
@@ -10,9 +8,11 @@ import {
   useAppSelector,
 } from '@redux';
 
-import { useModal } from '@hooks';
+import { useModal, useLocalStorage } from '@hooks';
 import { sortByStartDate } from '@helpers';
 import { ITrip } from '@types';
+
+import { AddButton, CustomModal } from '@components';
 
 import style from './TripsCatalog.module.scss';
 
@@ -21,13 +21,18 @@ import { AddTripForm } from '../AddTripForm';
 
 export const TripsCatalog: FC = () => {
   const dispatch = useAppDispatch();
-
+  const { setToLocalStorage } = useLocalStorage();
   const [isVisible, handleModal] = useModal();
+
   const { trips, activeTrip, filteredTrips, searchValue } =
     useAppSelector(getTripsState);
 
   const onAddNewTrip = (newTrip: ITrip) => {
-    dispatch(setTrips([...trips, newTrip].sort(sortByStartDate)));
+    const updatedTrips = [...trips, newTrip].sort(sortByStartDate);
+
+    dispatch(setTrips(updatedTrips));
+
+    setToLocalStorage(updatedTrips);
   };
 
   const onSelectActive = (activeId: number) => {
@@ -50,13 +55,11 @@ export const TripsCatalog: FC = () => {
             />
           ),
         )}
-
+        {/* ADD BUTTON HERE */}
         <div>
           <AddButton onClick={() => handleModal(true)} />
         </div>
       </div>
-
-      {/* ADD BUTTON HERE */}
 
       {/* ADD Form with MODAL HERE */}
       <CustomModal
