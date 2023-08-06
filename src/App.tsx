@@ -1,5 +1,7 @@
 import { FC, useEffect } from 'react';
 
+import bgIcon from '@assets/images/background.svg';
+
 import { setTrips, useAppDispatch } from '@redux';
 import { useLocalStorage } from '@hooks';
 
@@ -46,6 +48,28 @@ export const App: FC = () => {
         </div>
 
         <CountDownTimer />
+
+        {/*  BG-Images here */}
+        <img
+          className={style.bg_icon_1}
+          src={bgIcon}
+          alt="cloud"
+        />
+        <img
+          className={style.bg_icon_2}
+          src={bgIcon}
+          alt="cloud"
+        />
+        <img
+          className={style.bg_icon_3}
+          src={bgIcon}
+          alt="cloud"
+        />
+        <img
+          className={style.bg_icon_4}
+          src={bgIcon}
+          alt="cloud"
+        />
       </div>
     </div>
   );

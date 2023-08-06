@@ -22,7 +22,7 @@ export const ForecastCatalog: FC = () => {
   const { activeTrip, trips } = useAppSelector(getTripsState);
 
   useEffect(() => {
-    //if (true) return;
+    if (true) return;
     /** TO DO : remove conditional after  */
     // if (!activeTrip) return;
     const { city, startDate, endDate } = trips.find(

@@ -25,6 +25,12 @@
   border: $borderGray;
   border-radius: 2px;
 
+  .icon {
+    position: absolute;
+    right: 12px;
+    z-index: -1;
+  }
+
   input {
     width: 100%;
     background-color: transparent;
@@ -33,13 +39,6 @@
   input[type='date']::-webkit-calendar-picker-indicator,
   input[type='date']::-webkit-inner-spin-button {
     opacity: 0;
-  }
-
-  &::before {
-    content: url('../../../assets/images/calendar.svg');
-    position: absolute;
-    right: 12px;
-    z-index: -1;
   }
 
   &::after {

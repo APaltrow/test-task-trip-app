@@ -37,16 +37,40 @@ body {
   justify-content: center;
   align-items: center;
 
+  overflow: hidden;
+
   color: rgba(255, 255, 255, 1);
   background-color: $bluePrimary;
 
-  background:
-    url('../assets/images/background.svg') 350px 100px no-repeat,
-    url('../assets/images/background.svg') 430px 450px no-repeat,
-    url('../assets/images/background.svg') -130px 600px no-repeat,
-    url('../assets/images/background.svg') -60px 200px no-repeat;
+  z-index: -5;
 
-  background-color: $bluePrimary;
+  .bg_icon_1 {
+    position: absolute;
+    top: 120px;
+    right: -80px;
+    z-index: -1;
+  }
+  .bg_icon_2 {
+    position: absolute;
+
+    top: 190px;
+    left: -60px;
+    z-index: -1;
+  }
+  .bg_icon_3 {
+    position: absolute;
+
+    bottom: 100px;
+    right: 10px;
+    z-index: -1;
+  }
+  .bg_icon_4 {
+    position: absolute;
+
+    bottom: 20px;
+    left: -120px;
+    z-index: -1;
+  }
 
   .container {
     height: 50%;
@@ -57,13 +81,5 @@ body {
   .left {
     padding: 20px;
     gap: 30px;
-  }
-  .right {
-    background:
-      url('../assets/images/background.svg') 220px 430px no-repeat,
-      url('../assets/images/background.svg') 250px 100px no-repeat,
-      url('../assets/images/background.svg') -110px 500px no-repeat,
-      url('../assets/images/background.svg') -70px 200px no-repeat;
-    background-color: $bluePrimary;
   }
 }
