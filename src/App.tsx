@@ -12,8 +12,6 @@ import {
 
 import style from '@style/app.module.scss';
 
-// TO DO : add background icons
-
 export const App: FC = () => {
   return (
     <div className={style.app}>

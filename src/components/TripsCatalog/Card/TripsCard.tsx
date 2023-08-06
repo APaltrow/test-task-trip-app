@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 
 import { formatDate } from '@helpers';
 
@@ -23,8 +23,19 @@ export const TripsCard: FC<TripsCardProps> = ({
 
   onSelectActive,
 }) => {
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!btnRef?.current) return;
+
+    if (isActive) {
+      btnRef.current.scrollIntoView();
+    }
+  }, [isActive]);
+
   return (
     <button
+      ref={btnRef}
       type="button"
       className={isActive ? style.card_btn_active : style.card_btn}
       onClick={onSelectActive}

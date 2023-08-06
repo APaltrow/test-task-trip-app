@@ -4,20 +4,19 @@ import {
   getTripsState,
   setActiveTrip,
   setSearchVale,
+  setSortOrder,
   useAppDispatch,
   useAppSelector,
 } from '@redux';
 
-import { ServiceButton, Search } from '@components';
+import { ServiceButton, Search, Error } from '@components';
 
 import style from './ToolBar.module.scss';
 
-//  TO DO ======  Implement next and previous buttons
-//  TO DO ======  Sort trips by start trip date
-
 export const ToolBar: FC = () => {
   const dispatch = useAppDispatch();
-  const { trips, activeTrip, searchValue } = useAppSelector(getTripsState);
+  const { trips, filteredTrips, activeTrip, searchValue, sortOrder } =
+    useAppSelector(getTripsState);
 
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchVale(e.target.value));
@@ -32,26 +31,54 @@ export const ToolBar: FC = () => {
     dispatch(setActiveTrip(trips[activeTripIdx].id));
   };
 
+  const onSortOrderChange = (order: 'asc' | 'desc') => {
+    dispatch(setSortOrder(order));
+  };
+
+  const isVisible = trips.length > 1 && !searchValue;
+  const isError = !!searchValue && !filteredTrips.length;
+
+  const activeTripIndex = trips.indexOf(
+    trips.find((trip) => trip.id === activeTrip),
+  );
+
   return (
     <div className={style.toolbar_container}>
+      {/* SEARCH here */}
       <Search
         value={searchValue}
         onSearch={onSearch}
       />
-
-      {!searchValue ? (
+      {isError && <Error errorMessage={`'${searchValue}' is not found`} />}
+      {isVisible ? (
         <>
+          {/* PAGGINATION here */}
           <ServiceButton
             type="previous"
-            disabled={activeTrip <= 0}
-            onClick={() => onChangeActiveTrip(activeTrip - 1)}
+            disabled={activeTripIndex <= 0}
+            onClick={() => onChangeActiveTrip(activeTripIndex - 1)}
           />
-
+          <span className={style.info}>{`${activeTripIndex + 1} / ${
+            trips.length
+          }`}</span>
           <ServiceButton
             type="next"
-            disabled={activeTrip >= trips.length - 1}
-            onClick={() => onChangeActiveTrip(activeTrip + 1)}
+            disabled={activeTripIndex >= trips.length - 1}
+            onClick={() => onChangeActiveTrip(activeTripIndex + 1)}
           />
+
+          {/* SORT here */}
+          <span className={style.info}>
+            {sortOrder === 'asc' ? 'ascending' : 'descending'}
+          </span>
+          <span className={sortOrder === 'asc' ? style.sort_btn : ''}>
+            <ServiceButton
+              type="arrowDown"
+              onClick={() =>
+                onSortOrderChange(sortOrder === 'asc' ? 'desc' : 'asc')
+              }
+            />
+          </span>
         </>
       ) : null}
     </div>

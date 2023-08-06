@@ -9,8 +9,9 @@ import style from './CountDownTimer.module.scss';
 
 export const CountDownTimer: FC = () => {
   const { activeTrip, trips } = useAppSelector(getTripsState);
+  const date = trips.find((trip) => trip.id === activeTrip).startDate;
 
-  const countdown = useCountDown(`${trips[activeTrip].startDate} 00:00:00`);
+  const countdown = useCountDown(`${date} 00:00:00`);
 
   return (
     <section className={style.container}>

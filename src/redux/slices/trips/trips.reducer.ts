@@ -7,49 +7,50 @@ import { TripsState } from '@redux';
 const initialState: TripsState = {
   trips: [
     {
-      startDate: '2023-08-06',
+      startDate: '2023-08-07',
       endDate: '2023-08-08',
       city: 'Berlin',
       id: 1,
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
-    /**
+
     {
-      startDate: '2023-08-02',
-      endDate: '2023-08-12',
+      startDate: '2023-08-08',
+      endDate: '2023-08-09',
       city: 'Barcelona',
       id: 2,
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
     {
-      startDate: '2023-08-03',
-      endDate: '2023-08-13',
+      startDate: '2023-08-09',
+      endDate: '2023-08-10',
       city: 'Milan',
       id: 3,
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
     {
-      startDate: '2023-08-04',
-      endDate: '2023-08-14',
+      startDate: '2023-08-10',
+      endDate: '2023-08-11',
       city: 'Prague',
       id: 4,
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
+    /**
     {
-      startDate: '2023-08-05',
-      endDate: '2023-08-15',
+      startDate: '2023-08-11',
+      endDate: '2023-08-12',
       city: 'Paris',
       id: 5,
       imgURL:
         'https://www.berlin.de/binaries/asset/image_assets/6340464/ratio_2_1/1685015071/1500x750/',
     },
     {
-      startDate: '2023-08-06',
-      endDate: '2023-08-16',
+      startDate: '2023-08-12',
+      endDate: '2023-08-26',
       city: 'London',
       id: 6,
       imgURL:
@@ -57,44 +58,55 @@ const initialState: TripsState = {
     },
      */
   ],
-  searchValue: '',
   filteredTrips: [],
-  activeTrip: 0,
+  searchValue: '',
+  sortOrder: 'asc',
+  activeTrip: 1,
 };
 
 export const tripsSlice = createSlice({
   name: 'trips',
   initialState,
   reducers: {
-    addNewTrip: (state, action: PayloadAction<ITrip[]>) => {
+    setTrips: (state, action: PayloadAction<ITrip[]>) => {
+      /* By default trips are sorted as ASCENDING  */
+      /* and resorted  as ASCENDING  after adding a new trip : need to resort in case the sort order is DESCENDING */
+
+      if (state.sortOrder === 'desc') {
+        state.trips = [...action.payload.reverse()];
+        return;
+      }
+
       state.trips = action.payload;
     },
     setActiveTrip: (state, action: PayloadAction<number>) => {
-      /* Searching for active Trip by ID */
-      const active = state.trips.find((trip) => trip.id === action.payload);
+      state.activeTrip = action.payload;
 
-      /* Setting index of the active trip */
-      state.activeTrip = state.trips.indexOf(active);
-
-      /* if there is search value - removing it and resetting filtered list */
       if (state.searchValue) {
         state.searchValue = '';
         state.filteredTrips = [];
       }
     },
     setSearchVale: (state, action: PayloadAction<string>) => {
-      state.searchValue = action.payload;
+      const userInput = action.payload;
 
-      if (!action.payload) {
+      state.searchValue = userInput;
+
+      if (!userInput) {
         state.filteredTrips = [];
         return;
       }
 
       state.filteredTrips = state.trips.filter((trip) =>
-        trip.city.toLowerCase().includes(action.payload.toLowerCase()),
+        trip.city.toLowerCase().includes(userInput.toLowerCase()),
       );
+    },
+    setSortOrder: (state, action: PayloadAction<'asc' | 'desc'>) => {
+      state.sortOrder = action.payload;
+      state.trips = [...state.trips.reverse()];
     },
   },
 });
 
-export const { addNewTrip, setActiveTrip, setSearchVale } = tripsSlice.actions;
+export const { setTrips, setActiveTrip, setSearchVale, setSortOrder } =
+  tripsSlice.actions;

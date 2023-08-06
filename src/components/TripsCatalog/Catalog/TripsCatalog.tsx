@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { AddButton, CustomModal } from '@components';
 
 import {
-  addNewTrip,
   getTripsState,
   setActiveTrip,
+  setTrips,
   useAppDispatch,
   useAppSelector,
 } from '@redux';
@@ -27,7 +27,7 @@ export const TripsCatalog: FC = () => {
     useAppSelector(getTripsState);
 
   const onAddNewTrip = (newTrip: ITrip) => {
-    dispatch(addNewTrip([...trips, newTrip].sort(sortByStartDate)));
+    dispatch(setTrips([...trips, newTrip].sort(sortByStartDate)));
   };
 
   const onSelectActive = (activeId: number) => {
@@ -36,24 +36,27 @@ export const TripsCatalog: FC = () => {
 
   return (
     <div className={style.trips_catalog}>
-      {(searchValue ? filteredTrips : trips).map(
-        ({ city, startDate, endDate, imgURL, id }, index) => (
-          <TripsCard
-            key={id}
-            onSelectActive={() => onSelectActive(id)}
-            isActive={activeTrip === index}
-            startDate={startDate}
-            endDate={endDate}
-            city={city}
-            url={imgURL}
-          />
-        ),
-      )}
+      <div className={style.container}>
+        {(searchValue ? filteredTrips : trips).map(
+          ({ city, startDate, endDate, imgURL, id }) => (
+            <TripsCard
+              key={id}
+              onSelectActive={() => onSelectActive(id)}
+              isActive={activeTrip === id}
+              startDate={startDate}
+              endDate={endDate}
+              city={city}
+              url={imgURL}
+            />
+          ),
+        )}
+
+        <div>
+          <AddButton onClick={() => handleModal(true)} />
+        </div>
+      </div>
 
       {/* ADD BUTTON HERE */}
-      <div>
-        <AddButton onClick={() => handleModal(true)} />
-      </div>
 
       {/* ADD Form with MODAL HERE */}
       <CustomModal

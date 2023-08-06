@@ -36,9 +36,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 150px;
+  gap: 50px;
 
   color: rgba(255, 255, 255, 1);
+  background-color: $bluePrimary;
+
+  background:
+    url('../assets/images/background.svg') 350px 100px no-repeat,
+    url('../assets/images/background.svg') 430px 450px no-repeat,
+    url('../assets/images/background.svg') -130px 600px no-repeat,
+    url('../assets/images/background.svg') -60px 200px no-repeat;
+
   background-color: $bluePrimary;
 }
 
@@ -46,5 +54,13 @@ body {
   .left {
     padding: 20px;
     gap: 30px;
+  }
+  .right {
+    background:
+      url('../assets/images/background.svg') 220px 430px no-repeat,
+      url('../assets/images/background.svg') 250px 100px no-repeat,
+      url('../assets/images/background.svg') -110px 500px no-repeat,
+      url('../assets/images/background.svg') -70px 200px no-repeat;
+    background-color: $bluePrimary;
   }
 }

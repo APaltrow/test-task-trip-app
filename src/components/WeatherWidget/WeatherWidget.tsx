@@ -19,9 +19,9 @@ export const WeatherWidget: FC = () => {
   const { activeTrip, trips } = useAppSelector(getTripsState);
 
   useEffect(() => {
-    const { city } = trips[activeTrip];
+    const { city } = trips.find((trip) => trip.id === activeTrip);
     /** TO DO : remove conditional after  */
-    if (city === 'Berlin') return;
+    if (true) return;
     if (!city) return;
     dispatch(fetchWeatherTodayThunk(city));
   }, [activeTrip]);

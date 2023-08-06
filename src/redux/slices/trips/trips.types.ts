@@ -5,4 +5,5 @@ export interface TripsState {
   filteredTrips: ITrip[];
   searchValue: string;
   activeTrip: number;
+  sortOrder: 'asc' | 'desc';
 }
