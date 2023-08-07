@@ -2,7 +2,13 @@ import { FC, useEffect } from 'react';
 
 import bgIcon from '@assets/images/background.svg';
 
-import { setTrips, useAppDispatch } from '@redux';
+import {
+  setActiveTrip,
+  setSearchVale,
+  setSortOrder,
+  setTrips,
+  useAppDispatch,
+} from '@redux';
 import { useLocalStorage } from '@hooks';
 
 import {
@@ -19,13 +25,19 @@ import style from '@style/app.module.scss';
 
 export const App: FC = () => {
   const dispatch = useAppDispatch();
+
   const { getFromLocalStorage } = useLocalStorage();
 
   useEffect(() => {
-    const tripsFromStorage = getFromLocalStorage();
-    if (!tripsFromStorage) return;
+    const localStoreData: Storage = getFromLocalStorage();
+    if (!localStoreData) return;
 
-    dispatch(setTrips(tripsFromStorage));
+    const { trips, searchValue, sortOrder, activeTrip } = localStoreData;
+
+    dispatch(setTrips(trips));
+    dispatch(setSortOrder(sortOrder));
+    dispatch(setActiveTrip(activeTrip));
+    dispatch(setSearchVale(searchValue));
   }, []);
 
   return (

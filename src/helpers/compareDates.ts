@@ -1,18 +1,17 @@
-export const compareDates = (
-  firstDate: string,
-  secondDate: string,
-): boolean => {
-  const first = new Date(
-    firstDate.split('-')[0],
-    firstDate.split('-')[1] - 1,
-    firstDate.split('-')[2],
+type CompareDates = (firstDate: string, secondDate: string) => boolean;
+
+export const compareDates: CompareDates = (first, second) => {
+  const firstDate = new Date(
+    Number(first.split('-')[0]),
+    Number(first.split('-')[1]) - 1,
+    Number(first.split('-')[2]),
   );
 
-  const second = new Date(
-    secondDate.split('-')[0],
-    secondDate.split('-')[1] - 1,
-    secondDate.split('-')[2],
+  const secondDate = new Date(
+    Number(second.split('-')[0]),
+    Number(second.split('-')[1]) - 1,
+    Number(second.split('-')[2]),
   );
 
-  return first > second;
+  return firstDate > secondDate;
 };

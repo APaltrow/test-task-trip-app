@@ -1,17 +1,20 @@
+import { TripsState } from '@redux';
 import { LOCALSTORAGE_KEY } from '@constants';
-import { ITrip } from '@types';
+
+type Storage = Omit<TripsState, 'filteredTrips'>;
 
 export const useLocalStorage = () => {
-  const setToLocalStorage = (newTrips: ITrip[]) => {
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(newTrips));
+  const getFromLocalStorage = (): Storage | null => {
+    const storageJSON = localStorage.getItem(LOCALSTORAGE_KEY);
+    if (!storageJSON) return null;
+
+    const storageData: Storage = JSON.parse(storageJSON);
+
+    return storageData;
   };
 
-  const getFromLocalStorage = (): ITrip[] | null => {
-    const storage = localStorage.getItem(LOCALSTORAGE_KEY);
-
-    if (!storage) return null;
-
-    return JSON.parse(storage);
+  const setToLocalStorage = (newStorage: Storage) => {
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(newStorage));
   };
 
   return {

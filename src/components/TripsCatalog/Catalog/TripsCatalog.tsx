@@ -21,26 +21,30 @@ import { AddTripForm } from '../AddTripForm';
 
 export const TripsCatalog: FC = () => {
   const dispatch = useAppDispatch();
-  const { setToLocalStorage } = useLocalStorage();
-  const [isVisible, handleModal] = useModal();
 
-  const { trips, activeTrip, filteredTrips, searchValue } =
-    useAppSelector(getTripsState);
+  const [isVisible, handleModal] = useModal();
+  const { setToLocalStorage } = useLocalStorage();
+
+  const { filteredTrips, ...storage } = useAppSelector(getTripsState);
+  const { trips, activeTrip, searchValue, sortOrder } = storage;
 
   const onAddNewTrip = (newTrip: ITrip) => {
-    const updatedTrips = [...trips, newTrip].sort(sortByStartDate);
+    const updatedTrips = [...trips, newTrip].sort((trip1, trip2) =>
+      sortByStartDate(trip1, trip2, sortOrder),
+    );
 
     dispatch(setTrips(updatedTrips));
-
-    setToLocalStorage(updatedTrips);
+    setToLocalStorage({ ...storage, trips: updatedTrips });
   };
 
   const onSelectActive = (activeId: number) => {
     dispatch(setActiveTrip(activeId));
+    setToLocalStorage({ ...storage, activeTrip: activeId });
   };
 
   return (
     <div className={style.trips_catalog}>
+      {/* LIST OF TRIPS HERE */}
       <div className={style.container}>
         {(searchValue ? filteredTrips : trips).map(
           ({ city, startDate, endDate, imgURL, id }) => (

@@ -9,13 +9,16 @@ import style from './CountDownTimer.module.scss';
 
 export const CountDownTimer: FC = () => {
   const { activeTrip, trips } = useAppSelector(getTripsState);
-  const date = trips.find((trip) => trip.id === activeTrip).startDate;
+  if (!trips.length) return null;
+
+  const date = trips.find((trip) => trip.id === activeTrip)?.startDate;
+  if (!date) return null;
 
   const countdown = useCountDown(`${date} 00:00:00`);
 
   return (
     <section className={style.container}>
-      {TIME_CLOCK.map((timeItem) => {
+      {TIME_CLOCK.map((timeItem: string) => {
         const timeProp = countdown[timeItem];
         return (
           <div

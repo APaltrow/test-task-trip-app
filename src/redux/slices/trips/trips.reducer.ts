@@ -26,14 +26,6 @@ export const tripsSlice = createSlice({
   initialState,
   reducers: {
     setTrips: (state, action: PayloadAction<ITrip[]>) => {
-      /* By default trips are sorted as ASCENDING  */
-      /* and resorted  as ASCENDING  after adding a new trip : need to resort in case the sort order is DESCENDING */
-
-      if (state.sortOrder === 'desc') {
-        state.trips = [...action.payload.reverse()];
-        return;
-      }
-
       state.trips = action.payload;
     },
     setActiveTrip: (state, action: PayloadAction<number>) => {
@@ -60,7 +52,6 @@ export const tripsSlice = createSlice({
     },
     setSortOrder: (state, action: PayloadAction<'asc' | 'desc'>) => {
       state.sortOrder = action.payload;
-      state.trips = [...state.trips.reverse()];
     },
   },
 });

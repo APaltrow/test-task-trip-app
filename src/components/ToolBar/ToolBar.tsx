@@ -5,9 +5,12 @@ import {
   setActiveTrip,
   setSearchVale,
   setSortOrder,
+  setTrips,
   useAppDispatch,
   useAppSelector,
 } from '@redux';
+import { useLocalStorage } from '@hooks';
+import { sortByStartDate } from '@helpers';
 
 import { ServiceButton, Search, Error } from '@components';
 
@@ -15,25 +18,34 @@ import style from './ToolBar.module.scss';
 
 export const ToolBar: FC = () => {
   const dispatch = useAppDispatch();
+  const { setToLocalStorage } = useLocalStorage();
 
-  const { trips, filteredTrips, activeTrip, searchValue, sortOrder } =
-    useAppSelector(getTripsState);
+  const { filteredTrips, ...storage } = useAppSelector(getTripsState);
+  const { trips, activeTrip, searchValue, sortOrder } = storage;
 
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchVale(e.target.value));
+    const userInput = e.target.value;
+
+    dispatch(setSearchVale(userInput));
+    setToLocalStorage({ ...storage, searchValue: userInput });
   };
 
   const onChangeActiveTrip = (activeTripIdx: number) => {
-    if (activeTripIdx > trips.length) {
-      dispatch(setActiveTrip(trips[0].id));
-      return;
-    }
+    const activeTripID =
+      activeTripIdx > trips.length ? trips[0].id : trips[activeTripIdx].id;
 
-    dispatch(setActiveTrip(trips[activeTripIdx].id));
+    dispatch(setActiveTrip(activeTripID));
+    setToLocalStorage({ ...storage, activeTrip: activeTripID });
   };
 
   const onSortOrderChange = (order: 'asc' | 'desc') => {
+    const sortedTrips = [...trips].sort((trip1, trip2) =>
+      sortByStartDate(trip1, trip2, order),
+    );
+
     dispatch(setSortOrder(order));
+    dispatch(setTrips(sortedTrips));
+    setToLocalStorage({ ...storage, trips: sortedTrips, sortOrder: order });
   };
 
   const isVisible = trips.length > 1 && !searchValue;
@@ -44,7 +56,7 @@ export const ToolBar: FC = () => {
   );
 
   return (
-    <div className={style.toolbar_container}>
+    <div className={style.container}>
       {/* SEARCH here */}
       <Search
         value={searchValue}
