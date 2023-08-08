@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 
 import { useFormValidation } from '@hooks';
-import { CITIES_LIST } from '@constants';
+import { CITIES_LIST, DEFAULT_TRIP } from '@constants';
 import { generateID, getImgURLByCityName } from '@helpers';
 import { ITrip, ITripInitial } from '@types';
 
@@ -13,12 +13,6 @@ import {
 } from '@components';
 
 import style from './AddTripForm.module.scss';
-
-const DEFAULT_TRIP = {
-  city: '',
-  startDate: '',
-  endDate: '',
-};
 
 interface FormProps {
   onClose: () => void;
@@ -45,6 +39,7 @@ export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
 
     const imgURL: string = getImgURLByCityName(trip.city, CITIES_LIST);
     const id: number = generateID();
+
     const newTrip: ITrip = {
       ...trip,
       imgURL,

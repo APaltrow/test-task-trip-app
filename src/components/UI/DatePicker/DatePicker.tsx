@@ -1,6 +1,9 @@
 import { ChangeEvent, FC, useState } from 'react';
 import calendarIcon from '@assets/images/calendar.svg';
 
+import { getDateInRange } from '@helpers';
+import { VALID_DAYS_RANGE } from '@constants';
+
 import style from './DatePicker.module.scss';
 
 interface DatePickerProps {
@@ -21,6 +24,7 @@ export const DatePicker: FC<DatePickerProps> = ({
 }) => {
   const [isFocused, setFocused] = useState(false);
   const [isTouched, setTouched] = useState(false);
+  const { minDate, maxDate } = getDateInRange(new Date(), VALID_DAYS_RANGE);
 
   const onDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange({ [name]: event.target.value });
@@ -34,22 +38,17 @@ export const DatePicker: FC<DatePickerProps> = ({
     >
       <span className={style.title}>{title}</span>
 
-      {isFocused ? (
-        <input
-          id="datepick"
-          type="date"
-          onChange={onDateChange}
-          onBlur={() => setTouched(true)}
-          value={value}
-        />
-      ) : (
-        <input
-          type="text"
-          placeholder="Select Date"
-          onFocus={() => setFocused(true)}
-          readOnly
-        />
-      )}
+      <input
+        id="datepick"
+        type={isFocused ? 'date' : 'text'}
+        onChange={onDateChange}
+        onBlur={() => setTouched(true)}
+        onFocus={() => setFocused(true)}
+        placeholder="Select Date"
+        value={value}
+        min={minDate}
+        max={maxDate}
+      />
 
       <img
         className={style.icon}

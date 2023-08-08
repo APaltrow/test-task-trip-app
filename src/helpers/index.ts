@@ -7,3 +7,4 @@ export * from './sortByStartDate';
 export * from './getDayOfWeek';
 export * from './getWeatherIcon';
 export * from './validators/validateDate';
+export * from './getDateInRange';

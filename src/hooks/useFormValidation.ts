@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { compareDates, validateDate } from '@helpers';
 import { ITripInitial } from '@types';
-
-const VALID_DAYS_RANGE = 15;
+import { VALID_DAYS_RANGE } from '@constants';
 
 export const useFormValidation = (trip: ITripInitial) => {
   const [isValidForm, setValidForm] = useState(false);
