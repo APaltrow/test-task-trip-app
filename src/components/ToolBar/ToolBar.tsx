@@ -80,6 +80,7 @@ export const ToolBar: FC = () => {
           <span className={style.info}>
             {sortOrder === 'asc' ? 'ascending' : 'descending'}
           </span>
+
           <span className={sortOrder === 'asc' ? style.sort_btn : ''}>
             <ServiceButton
               type="arrowDown"

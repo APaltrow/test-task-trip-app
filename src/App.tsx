@@ -3,11 +3,11 @@ import { FC } from 'react';
 import bgIcon from '@assets/images/background.svg';
 
 import {
-  ForecastCatalog,
+  Logo,
   Header,
   ToolBar,
   TripsCatalog,
-  Logo,
+  ForecastCatalog,
   WeatherWidget,
   CountDownTimer,
 } from '@components';

@@ -1,16 +1,16 @@
 import { FC, useState } from 'react';
 
+import { useFormValidation } from '@hooks';
+import { CITIES_LIST } from '@constants';
+import { generateID, getImgURLByCityName } from '@helpers';
+import { ITrip, ITripInitial } from '@types';
+
 import {
   CityPicker,
   CustomButton,
   DatePicker,
   ServiceButton,
 } from '@components';
-
-import { useFormValidation } from '@hooks';
-import { CITIES_LIST } from '@constants';
-import { generateID, getImgURLByCityName } from '@helpers';
-import { ITrip, ITripInitial } from '@types';
 
 import style from './AddTripForm.module.scss';
 

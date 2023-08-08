@@ -16,11 +16,19 @@ Application for planning trips with weather forecaust features.
 | Build            | Webpack                       |
 | State management | Redux (Toolkit + Async Thunk) |
 | Server requests  | Axios                         |
-| Authentication   | oAuth : Gmail                 |
 | CodeStyle        | EsLint + Prettier             |
 | Version control  | Git                           |
 | Deployment       | Github Pages                  |
 
 ## Detailed Overview
 
+✔️ To be added
+
+✔️ To be added
+
+✔️ To be added
+
+✔️ To be added
+
+✔️ To be added
 ✔️ To be added

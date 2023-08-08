@@ -20,8 +20,7 @@ export const WeatherWidget: FC = () => {
 
   useEffect(() => {
     const { city } = trips.find((trip) => trip.id === activeTrip);
-    /** TO DO : remove conditional after  */
-    if (true) return;
+
     if (!city) return;
     dispatch(fetchWeatherTodayThunk(city));
   }, [activeTrip]);
