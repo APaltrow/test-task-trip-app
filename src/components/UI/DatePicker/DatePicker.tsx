@@ -1,40 +1,36 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import calendarIcon from '@assets/images/calendar.svg';
-
-import { useDateValidation } from '@hooks';
 
 import style from './DatePicker.module.scss';
 
 interface DatePickerProps {
   title: string;
   name: string;
+  error: string | null;
+  value: string;
 
   onChange: (arg: { [string]: string | null }) => void;
 }
 
-export const DatePicker: FC<DatePickerProps> = ({ title, name, onChange }) => {
+export const DatePicker: FC<DatePickerProps> = ({
+  title,
+  name,
+  error,
+  value,
+  onChange,
+}) => {
   const [isFocused, setFocused] = useState(false);
-  const [date, setDate] = useState<null | string>(null);
-
-  const { error } = useDateValidation(date);
+  const [isTouched, setTouched] = useState(false);
 
   const onDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setDate(event.target.value);
+    onChange({ [name]: event.target.value });
   };
-
-  useEffect(() => {
-    if (!error) {
-      onChange({ [name]: date });
-    } else {
-      onChange({ [name]: null });
-    }
-  }, [date, error]);
 
   return (
     <label
       htmlFor="datepick"
       className={style.select_label}
-      data-error={error}
+      data-error={isFocused && isTouched ? error : ''}
     >
       <span className={style.title}>{title}</span>
 
@@ -43,12 +39,15 @@ export const DatePicker: FC<DatePickerProps> = ({ title, name, onChange }) => {
           id="datepick"
           type="date"
           onChange={onDateChange}
+          onBlur={() => setTouched(true)}
+          value={value}
         />
       ) : (
         <input
           type="text"
           placeholder="Select Date"
           onFocus={() => setFocused(true)}
+          readOnly
         />
       )}
 

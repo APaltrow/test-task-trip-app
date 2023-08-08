@@ -6,23 +6,19 @@ import {
   DatePicker,
   ServiceButton,
 } from '@components';
+
 import { useFormValidation } from '@hooks';
+import { CITIES_LIST } from '@constants';
 import { generateID, getImgURLByCityName } from '@helpers';
-import { ITrip } from '@types';
+import { ITrip, ITripInitial } from '@types';
 
 import style from './AddTripForm.module.scss';
 
 const DEFAULT_TRIP = {
-  city: null,
-  startDate: null,
-  endDate: null,
+  city: '',
+  startDate: '',
+  endDate: '',
 };
-
-interface ITripInitialData {
-  city: null | string;
-  startDate: null | string;
-  endDate: null | string;
-}
 
 interface FormProps {
   onClose: () => void;
@@ -30,12 +26,13 @@ interface FormProps {
 }
 
 export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
-  const [trip, setTrip] = useState<ITripInitialData>(DEFAULT_TRIP);
+  const [trip, setTrip] = useState<ITripInitial>(DEFAULT_TRIP);
 
-  const { isValidForm, error } = useFormValidation(trip);
+  const { isValidForm, cityError, startDateError, endDateError, formError } =
+    useFormValidation(trip);
 
-  const onDataChange = (data: { [string]: string | null }) => {
-    setTrip((prev) => ({ ...prev, ...data }));
+  const onDataChange = (newData: { [string]: string | null }) => {
+    setTrip((prevData) => ({ ...prevData, ...newData }));
   };
 
   const onCancel = () => {
@@ -46,7 +43,7 @@ export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
   const onSave = () => {
     if (!trip?.city || !trip?.startDate || !trip?.startDate) return;
 
-    const imgURL: string = getImgURLByCityName(trip.city);
+    const imgURL: string = getImgURLByCityName(trip.city, CITIES_LIST);
     const id: number = generateID();
     const newTrip: ITrip = {
       ...trip,
@@ -59,10 +56,14 @@ export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
   };
 
   return (
-    <div className={style.container}>
+    <form
+      className={style.container}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      {/* HEADER here */}
       <div
         className={style.header}
-        data-error={error}
+        data-error={formError}
       >
         <h5>Create Trip</h5>
 
@@ -72,30 +73,39 @@ export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
         />
       </div>
 
+      {/* MAIN SECTION here */}
       <div className={style.main}>
         {/* City picker */}
+
         <CityPicker
+          value={trip.city}
           name="city"
           onChange={onDataChange}
+          error={cityError}
         />
-        {/* Date picker */}
+
+        {/* Date pickers */}
         <DatePicker
           title="Start Date"
           name="startDate"
           onChange={onDataChange}
+          value={trip.startDate}
+          error={startDateError}
         />
         <DatePicker
           title="End Date"
           name="endDate"
           onChange={onDataChange}
+          value={trip.endDate}
+          error={endDateError}
         />
       </div>
 
+      {/* FOOTER here */}
       <div className={style.footer}>
         <CustomButton
           type="cancel"
           buttonText="Cancel"
-          isDisabled={false}
           onClick={onCancel}
         />
 
@@ -106,6 +116,6 @@ export const AddTripForm: FC<FormProps> = ({ onClose, onAddNewTrip }) => {
           onClick={onSave}
         />
       </div>
-    </div>
+    </form>
   );
 };

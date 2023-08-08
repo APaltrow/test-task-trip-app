@@ -1,56 +1,79 @@
 import { useState, useEffect } from 'react';
 
-type Date = string | null;
+import { compareDates, validateDate } from '@helpers';
+import { ITripInitial } from '@types';
 
-export const useFormValidation = (trip) => {
+const VALID_DAYS_RANGE = 15;
+
+export const useFormValidation = (trip: ITripInitial) => {
   const [isValidForm, setValidForm] = useState(false);
-  const [error, setError] = useState('');
 
-  /*
-   Checking if Start Date and End Date are correctly set
- ---> End date cannot be less than Start date
-  */
-  const isCorrectDates = (startDate: Date, endDate: Date) => {
-    if (!startDate || !endDate) return;
+  const [cityError, setCityError] = useState<string>('');
+  const [startDateError, setStartDateError] = useState<string>('');
+  const [endDateError, setEndDateError] = useState<string>('');
 
-    const inputStartDate = new Date(
-      startDate.split('-')[0],
-      startDate.split('-')[1] - 1,
-      startDate.split('-')[2],
-    );
-    const inputEndDate = new Date(
-      endDate.split('-')[0],
-      endDate.split('-')[1] - 1,
-      endDate.split('-')[2],
-    );
-
-    if (inputStartDate > inputEndDate) {
-      setError('End Date cannot be less than Start Date');
-    } else {
-      setError('');
-    }
-  };
+  const [formError, setFormError] = useState('');
 
   useEffect(() => {
-    /* checking if there is any field in the Trip object is not fulfilled */
-    const isValid = Object.values(trip).filter((value) => value === null);
+    /** Validating City */
 
-    isCorrectDates(trip.startDate, trip.endDate);
-
-    if (error) {
-      setValidForm(false);
-      return;
+    if (!trip.city) {
+      setCityError('Field cannot be empty');
+    } else {
+      setCityError('');
     }
 
-    if (isValid.length) {
+    /** Validating Start Date */
+    const isStartDateValid = validateDate(trip.startDate, VALID_DAYS_RANGE);
+
+    if (isStartDateValid) {
+      setStartDateError(isStartDateValid);
+    } else {
+      setStartDateError('');
+    }
+
+    /** Validating End Date */
+    const isEndDateValid = validateDate(trip.endDate, VALID_DAYS_RANGE);
+
+    if (isEndDateValid) {
+      setEndDateError(isEndDateValid);
+    } else {
+      setEndDateError('');
+    }
+
+    /* Validating If start date is bigger than end date. If not = error */
+    const isStartDateBigger = compareDates(trip.startDate, trip.endDate);
+
+    if (isStartDateBigger) {
+      setFormError('End Date cannot be less than Start Date');
+    } else {
+      setFormError('');
+    }
+  }, [trip]);
+
+  useEffect(() => {
+    /** Validating if there is any empty fields in the Trip Object */
+    const isEmptyField = Object.values(trip).filter((value) => !value);
+
+    const isError =
+      cityError ||
+      startDateError ||
+      endDateError ||
+      formError ||
+      isEmptyField.length;
+
+    if (isError) {
       setValidForm(false);
     } else {
       setValidForm(true);
     }
-  }, [trip, error]);
+  }, [isValidForm, cityError, startDateError, endDateError, formError]);
 
   return {
     isValidForm,
-    error,
+    cityError,
+    startDateError,
+    endDateError,
+    formError,
   };
 };

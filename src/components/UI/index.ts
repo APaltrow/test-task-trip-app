@@ -8,3 +8,4 @@ export * from './DatePicker';
 export * from './CityPicker';
 export * from './Error';
 export * from './Loader';
+export * from './Dropdown';

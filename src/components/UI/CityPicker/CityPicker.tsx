@@ -1,98 +1,69 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
-import { ServiceButton } from '@components';
-import { filterCityByInput } from '@helpers';
-import { useCityValidation } from '@hooks';
 import { CITIES_LIST } from '@constants';
 
-import { Dropdown } from './Dropdown';
+import { ServiceButton, Dropdown } from '@components';
 
 import style from './CityPicker.module.scss';
 
 interface CityPickerProps {
   name: string;
+  value: string;
+  error: string;
+
   onChange: (arg: { [string]: string | null }) => void;
 }
 
-export const CityPicker: FC<CityPickerProps> = ({ name, onChange }) => {
-  const [citiesList, setCitiesList] = useState(CITIES_LIST);
+export const CityPicker: FC<CityPickerProps> = ({
+  name,
+  value,
+  error,
 
+  onChange,
+}) => {
   const [isVisible, setVisible] = useState(false);
-  const [isTouched, setIsTouched] = useState(false);
+  const [isTouched, setTouched] = useState(false);
 
-  const [city, setCity] = useState('');
-
-  const { error } = useCityValidation(city, isTouched, CITIES_LIST);
-
-  /* on city name pick from the dropdown menu */
-  const onCityPick = (cityName: string) => {
-    setCity(cityName);
+  const onPickCity = (cityName: string) => {
+    onChange({ [name]: cityName });
     setVisible(false);
   };
-  /* on city name input by the user */
-  const onCityChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCity(event.target.value);
-
-    if (!event.target.value) {
-      setVisible(false);
-      return;
-    }
-
-    setVisible(true);
-  };
-
-  /* name input submit after Validation */
-
-  useEffect(() => {
-    if (!city) return;
-
-    if (error) {
-      onChange({ [name]: null });
-    } else {
-      onChange({ [name]: city });
-    }
-  }, [city, error]);
-
-  /* FILTER city list by the user's input */
-
-  useEffect(() => {
-    if (city) {
-      setCitiesList(filterCityByInput(city, CITIES_LIST));
-    } else {
-      setCitiesList(CITIES_LIST);
-    }
-  }, [city]);
 
   return (
     <label
       htmlFor="citypicker"
-      className={style.select_city_label}
-      data-error={error}
+      className={style.label}
+      data-error={isTouched ? error : ''}
     >
+      {/* TITLE */}
       <span className={style.title}>City</span>
-
+      {/* INPUT */}
       <input
-        className={style.select_city_input}
-        value={city}
-        onChange={onCityChange}
-        onFocus={() => setIsTouched(true)}
+        className={style.input}
+        value={value}
+        name={name}
+        onBlur={() => setTouched(true)}
         id="citypicker"
         type="text"
         placeholder="Please select a city"
+        autoComplete="off"
+        readOnly
       />
 
-      <Dropdown
-        data={citiesList}
-        isVisible={isVisible}
-        onPick={onCityPick}
-      />
-
-      <span className={style.select_btn}>
+      {/* SELECT Button */}
+      <span className={style.btn}>
         <ServiceButton
           type="arrowDown"
           onClick={() => setVisible((prev) => !prev)}
         />
       </span>
+
+      {/* DROPDOWN with options */}
+      <Dropdown
+        list={CITIES_LIST}
+        isVisible={isVisible}
+        onPick={onPickCity}
+      />
     </label>
   );
 };

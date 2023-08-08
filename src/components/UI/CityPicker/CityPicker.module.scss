@@ -16,10 +16,12 @@
   }
 }
 
-.select_city_label {
+.label {
+  position: relative;
+  display: flex;
+
   padding: 12px;
   width: 100%;
-  position: relative;
 
   border: $borderGray;
   border-radius: 2px;
@@ -34,7 +36,12 @@
     color: $errorSecondary;
   }
 
-  .select_btn {
+  .input {
+    width: 100%;
+    background-color: transparent;
+  }
+
+  .btn {
     position: absolute;
     right: 12px;
     top: 8px;
@@ -42,10 +49,5 @@
     &:hover {
       cursor: pointer;
     }
-  }
-
-  .select_city_input {
-    width: 100%;
-    background-color: transparent;
   }
 }

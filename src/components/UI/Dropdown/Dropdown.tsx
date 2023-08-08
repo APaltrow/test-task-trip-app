@@ -3,17 +3,17 @@ import { FC } from 'react';
 import style from './Dropdown.module.scss';
 
 interface DropdownProps {
-  data: any[];
+  list: any[];
   isVisible: boolean;
   onPick: (cityName: string) => void;
 }
 
-export const Dropdown: FC<DropdownProps> = ({ data, isVisible, onPick }) => {
+export const Dropdown: FC<DropdownProps> = ({ list, isVisible, onPick }) => {
   if (!isVisible) return null;
 
   return (
     <ul className={style.dropdown}>
-      {data.map(({ name, id, imgURL }) => (
+      {list.map(({ name, id, imgURL }) => (
         <li
           className={style.dropdown_item}
           key={id}

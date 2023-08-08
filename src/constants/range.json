@@ -1,4 +1,6 @@
 ///https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/berlin/2023-8-3/2023-8-5?key=3N5HRXSQGAW9REXHRGR6NNJM2
+
+//TO DO = delete JSON'sS
 {
   "queryCost": 1,
   "latitude": 52.516,

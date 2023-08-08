@@ -1,9 +1,7 @@
-import { CITIES_LIST } from '@constants';
-
-export const getImgURLByCityName = (cityName: string): string => {
+export const getImgURLByCityName = (cityName: string, list: any[]): string => {
   if (!cityName) return '';
 
-  const city = CITIES_LIST.filter(
+  const city = list.filter(
     (cityItem) => cityItem.name.toLowerCase() === cityName.toLowerCase(),
   );
   if (!city.length) return '';

@@ -6,3 +6,9 @@ export interface ITrip {
   startDate: string;
   endDate: string;
 }
+
+export interface ITripInitial {
+  city: string;
+  startDate: string;
+  endDate: string;
+}
