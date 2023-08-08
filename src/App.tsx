@@ -1,15 +1,6 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import bgIcon from '@assets/images/background.svg';
-
-import {
-  setActiveTrip,
-  setSearchVale,
-  setSortOrder,
-  setTrips,
-  useAppDispatch,
-} from '@redux';
-import { useLocalStorage } from '@hooks';
 
 import {
   ForecastCatalog,
@@ -24,22 +15,6 @@ import {
 import style from '@style/app.module.scss';
 
 export const App: FC = () => {
-  const dispatch = useAppDispatch();
-
-  const { getFromLocalStorage } = useLocalStorage();
-
-  useEffect(() => {
-    const localStoreData: Storage = getFromLocalStorage();
-    if (!localStoreData) return;
-
-    const { trips, searchValue, sortOrder, activeTrip } = localStoreData;
-
-    dispatch(setTrips(trips));
-    dispatch(setSortOrder(sortOrder));
-    dispatch(setActiveTrip(activeTrip));
-    dispatch(setSearchVale(searchValue));
-  }, []);
-
   return (
     <div className={style.app}>
       {/*  MAIN   Section */}

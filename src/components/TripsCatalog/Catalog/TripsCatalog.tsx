@@ -8,7 +8,7 @@ import {
   useAppSelector,
 } from '@redux';
 
-import { useModal, useLocalStorage } from '@hooks';
+import { useModal } from '@hooks';
 import { sortByStartDate } from '@helpers';
 import { ITrip } from '@types';
 
@@ -23,7 +23,6 @@ export const TripsCatalog: FC = () => {
   const dispatch = useAppDispatch();
 
   const [isVisible, handleModal] = useModal();
-  const { setToLocalStorage } = useLocalStorage();
 
   const { filteredTrips, ...storage } = useAppSelector(getTripsState);
   const { trips, activeTrip, searchValue, sortOrder } = storage;
@@ -34,12 +33,10 @@ export const TripsCatalog: FC = () => {
     );
 
     dispatch(setTrips(updatedTrips));
-    setToLocalStorage({ ...storage, trips: updatedTrips });
   };
 
   const onSelectActive = (activeId: number) => {
     dispatch(setActiveTrip(activeId));
-    setToLocalStorage({ ...storage, activeTrip: activeId });
   };
 
   return (

@@ -9,7 +9,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@redux';
-import { useLocalStorage } from '@hooks';
+
 import { sortByStartDate } from '@helpers';
 
 import { ServiceButton, Search, Error } from '@components';
@@ -18,16 +18,14 @@ import style from './ToolBar.module.scss';
 
 export const ToolBar: FC = () => {
   const dispatch = useAppDispatch();
-  const { setToLocalStorage } = useLocalStorage();
 
-  const { filteredTrips, ...storage } = useAppSelector(getTripsState);
-  const { trips, activeTrip, searchValue, sortOrder } = storage;
+  const { filteredTrips, trips, activeTrip, searchValue, sortOrder } =
+    useAppSelector(getTripsState);
 
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const userInput = e.target.value;
 
     dispatch(setSearchVale(userInput));
-    setToLocalStorage({ ...storage, searchValue: userInput });
   };
 
   const onChangeActiveTrip = (activeTripIdx: number) => {
@@ -35,7 +33,6 @@ export const ToolBar: FC = () => {
       activeTripIdx > trips.length ? trips[0].id : trips[activeTripIdx].id;
 
     dispatch(setActiveTrip(activeTripID));
-    setToLocalStorage({ ...storage, activeTrip: activeTripID });
   };
 
   const onSortOrderChange = (order: 'asc' | 'desc') => {
@@ -45,7 +42,6 @@ export const ToolBar: FC = () => {
 
     dispatch(setSortOrder(order));
     dispatch(setTrips(sortedTrips));
-    setToLocalStorage({ ...storage, trips: sortedTrips, sortOrder: order });
   };
 
   const isVisible = trips.length > 1 && !searchValue;
