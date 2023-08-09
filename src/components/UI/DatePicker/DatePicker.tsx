@@ -33,18 +33,19 @@ export const DatePicker: FC<DatePickerProps> = ({
   return (
     <label
       htmlFor="datepick"
-      className={style.select_label}
+      className={style.label}
       data-error={isFocused && isTouched ? error : ''}
     >
       <span className={style.title}>{title}</span>
 
       <input
-        id="datepick"
+        className={style.input}
         type={isFocused ? 'date' : 'text'}
         onChange={onDateChange}
         onBlur={() => setTouched(true)}
         onFocus={() => setFocused(true)}
         placeholder="Select Date"
+        id="datepick"
         value={value}
         min={minDate}
         max={maxDate}

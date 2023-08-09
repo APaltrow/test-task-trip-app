@@ -1,0 +1,31 @@
+.bg_icon_1 {
+  position: absolute;
+  top: 120px;
+  right: -80px;
+  z-index: -1;
+  pointer-events: none;
+}
+.bg_icon_2 {
+  position: absolute;
+
+  top: 190px;
+  left: -60px;
+  z-index: -1;
+  pointer-events: none;
+}
+.bg_icon_3 {
+  position: absolute;
+
+  bottom: 100px;
+  right: 10px;
+  z-index: -1;
+  pointer-events: none;
+}
+.bg_icon_4 {
+  position: absolute;
+
+  bottom: 20px;
+  left: -120px;
+  z-index: -1;
+  pointer-events: none;
+}

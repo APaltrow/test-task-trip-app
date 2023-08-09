@@ -30,40 +30,42 @@ export const CityPicker: FC<CityPickerProps> = ({
   };
 
   return (
-    <label
-      htmlFor="citypicker"
-      className={style.label}
-      data-error={isTouched ? error : ''}
-    >
-      {/* TITLE */}
-      <span className={style.title}>City</span>
-      {/* INPUT */}
-      <input
-        className={style.input}
-        value={value}
-        name={name}
-        onBlur={() => setTouched(true)}
-        id="citypicker"
-        type="text"
-        placeholder="Please select a city"
-        autoComplete="off"
-        readOnly
-      />
-
-      {/* SELECT Button */}
-      <span className={style.btn}>
-        <ServiceButton
-          type="arrowDown"
-          onClick={() => setVisible((prev) => !prev)}
+    <div className={style.container}>
+      <label
+        htmlFor="citypicker"
+        className={style.label}
+        data-error={isTouched ? error : ''}
+      >
+        {/* TITLE */}
+        <span className={style.title}>City</span>
+        {/* INPUT */}
+        <input
+          className={style.input}
+          value={value}
+          name={name}
+          onBlur={() => setTouched(true)}
+          onFocus={() => setVisible(true)}
+          id="citypicker"
+          type="text"
+          placeholder="Please select a city"
+          autoComplete="off"
+          readOnly
         />
-      </span>
 
+        {/* SELECT Button */}
+        <span className={style.btn}>
+          <ServiceButton
+            type="arrowDown"
+            onClick={() => setVisible((prev) => !prev)}
+          />
+        </span>
+      </label>
       {/* DROPDOWN with options */}
       <Dropdown
         list={CITIES_LIST}
         isVisible={isVisible}
         onPick={onPickCity}
       />
-    </label>
+    </div>
   );
 };

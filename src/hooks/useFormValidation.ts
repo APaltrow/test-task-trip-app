@@ -40,7 +40,7 @@ export const useFormValidation = (trip: ITripInitial) => {
       setEndDateError('');
     }
 
-    /* Validating If start date is bigger than end date. If not = error */
+    /* Validating if start date is bigger than end date. If yes = error */
     const isStartDateBigger = compareDates(trip.startDate, trip.endDate);
 
     if (isStartDateBigger) {

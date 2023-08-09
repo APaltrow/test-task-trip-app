@@ -1,3 +1,5 @@
+@import '@style/_variables.scss';
+
 @mixin scroll-bar {
   /* width */
   &::-webkit-scrollbar {
@@ -17,5 +19,22 @@
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
     background: #555;
+  }
+}
+
+@mixin button-custom {
+  padding: 10px 15px;
+
+  border-radius: 2px;
+  background-color: transparent;
+  border: $borderGray;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
   }
 }

@@ -9,3 +9,4 @@ export * from './CityPicker';
 export * from './Error';
 export * from './Loader';
 export * from './Dropdown';
+export * from './Background';

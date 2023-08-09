@@ -15,30 +15,34 @@
     color: $errorSecondary;
   }
 }
-.select_label {
-  padding: 12px;
+.label {
   margin-top: 40px;
   width: 100%;
   position: relative;
   z-index: 2;
 
-  border: $borderGray;
-  border-radius: 2px;
-
   .icon {
     position: absolute;
     right: 12px;
+    top: 12px;
     z-index: -1;
   }
 
-  input {
+  .input {
     width: 100%;
+    padding: 12px;
     background-color: transparent;
-  }
+    border: $borderGray;
+    border-radius: 2px;
 
-  input[type='date']::-webkit-calendar-picker-indicator,
-  input[type='date']::-webkit-inner-spin-button {
-    opacity: 0;
+    &:focus {
+      border: $borderBlue;
+    }
+
+    &::-webkit-calendar-picker-indicator,
+    &::-webkit-inner-spin-button {
+      opacity: 0;
+    }
   }
 
   &::after {

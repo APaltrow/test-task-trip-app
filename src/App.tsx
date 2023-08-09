@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
-import bgIcon from '@assets/images/background.svg';
-
 import {
   Logo,
   Header,
@@ -10,6 +8,7 @@ import {
   ForecastCatalog,
   WeatherWidget,
   CountDownTimer,
+  Background,
 } from '@components';
 
 import style from '@style/app.module.scss';
@@ -36,27 +35,7 @@ export const App: FC = () => {
 
         <CountDownTimer />
 
-        {/*  BG-Images here */}
-        <img
-          className={style.bg_icon_1}
-          src={bgIcon}
-          alt="cloud"
-        />
-        <img
-          className={style.bg_icon_2}
-          src={bgIcon}
-          alt="cloud"
-        />
-        <img
-          className={style.bg_icon_3}
-          src={bgIcon}
-          alt="cloud"
-        />
-        <img
-          className={style.bg_icon_4}
-          src={bgIcon}
-          alt="cloud"
-        />
+        <Background />
       </div>
     </div>
   );

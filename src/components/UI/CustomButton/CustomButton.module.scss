@@ -1,24 +1,8 @@
 @import '@style/_variables.scss';
-
-@mixin button {
-  padding: 10px 15px;
-
-  border-radius: 2px;
-  background-color: transparent;
-  border: $borderGray;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-}
+@import '@style/_mixins.scss';
 
 .cancel {
-  @include button;
+  @include button-custom;
 
   &:hover {
     background-color: black;
@@ -28,9 +12,9 @@
 }
 
 .save {
-  @include button;
+  @include button-custom;
 
-  background-color: rgba(24, 144, 255, 1);
-  border: 2px solid rgba(24, 144, 255, 1);
+  background-color: $blueSecondary;
+  border: 2px solid $blueSecondary;
   color: white;
 }
