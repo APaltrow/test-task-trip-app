@@ -39,12 +39,14 @@ export const TripsCatalog: FC = () => {
     dispatch(setActiveTrip(activeId));
   };
 
+  const tripsList = searchValue ? filteredTrips : trips;
+
   return (
     <div className={style.trips_catalog}>
       {/* LIST OF TRIPS HERE */}
-      <div className={style.container}>
-        {(searchValue ? filteredTrips : trips).map(
-          ({ city, startDate, endDate, imgURL, id }) => (
+      {tripsList.length ? (
+        <div className={style.container}>
+          {tripsList.map(({ city, startDate, endDate, imgURL, id }) => (
             <TripsCard
               key={id}
               onSelectActive={() => onSelectActive(id)}
@@ -54,12 +56,12 @@ export const TripsCatalog: FC = () => {
               city={city}
               url={imgURL}
             />
-          ),
-        )}
-      </div>
+          ))}
+        </div>
+      ) : null}
 
       {/* ADD BUTTON HERE */}
-      <div>
+      <div className={style.btn_container}>
         <AddButton onClick={() => handleModal(true)} />
       </div>
 

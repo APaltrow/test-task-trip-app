@@ -22,13 +22,18 @@ Application for planning trips with weather forecaust features.
 
 ## Detailed Overview
 
-✔️ To be added
+✔️ Add Trip functionality (pick from a pre-defined list). Start-End date Validation on a specific range.
 
-✔️ To be added
+✔️ Search for an added Trip & pick from the scrollable list
 
-✔️ To be added
+✔️ Sorting by start date(asc & desc orders)
 
-✔️ To be added
+✔️ Paggination. Next & Previous buttons for handy navigation
 
-✔️ To be added
-✔️ To be added
+✔️ Today's weather forecast for selected city
+
+✔️ Weather forecast for specific dates range
+
+✔️ Countdown timer (from today to the start date of the trip)
+
+✔️ Data store memory after reloading
